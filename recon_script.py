@@ -124,17 +124,18 @@ def enumerate_subdomains(domain, output_dir):
 
 #remove duplicates from url
 def duplicut(input_dir):
+    unique_entries = set()
+    output_file = os.path.join(output_dir,"Subdomains","merged_subdomains.txt")
     for input_file in os.listdir(input_dir):
         if input_file.endswith(".txt"):
             file_path = os.path.join(input_dir, input_file)
-            unique_entries = set()
             with open(file_path, 'r') as file:
                 for line in file:
                     unique_entries.add(line.strip())
-            with open(file_path, 'w') as file:
-                for entry in sorted(unique_entries):
-                    file.write(entry + '\n')
-            print(f"{cyan}[*] Removed Duplicates from '{file_path}'{reset}")
+    with open(output_file, 'w') as file:
+        for entry in sorted(unique_entries):
+            file.write(entry + '\n')
+    print(f"{cyan}[*] Removed Duplicates from '{file_path}'{reset}")
 
 def update_subdomains():
     print(f"{yellow}[*] Finding Active subdomains {reset}")
